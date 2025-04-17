@@ -1,0 +1,4 @@
+Je compact toute ce dont j'ai besoin dans la fonction show, parametre, cv, letter, je les mets tous dans show[2025-04-01 16:58:13] local.INFO: Début de la création d'une publication {"user_id":2} 
+
+-Dans les fonctions pour postuler ,accepter une candiditature ou rejeter une candidature une unregistrement de laction est enregistrer dans la abse faire l'enregistrer=ment apres chaque action
+je crée une fonction pour acccedrer au profil d'un autre user avec une fonction parametrer de celui a qui appartient la publication qui as fait la publication

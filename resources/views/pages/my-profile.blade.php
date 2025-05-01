@@ -694,7 +694,6 @@
                 </div>
                 <!-- Main content END -->
 
-
                 <!-- Right sidebar START -->
                 <div class="col-lg-4">
                     <div class="row g-4">
@@ -790,47 +789,8 @@
         </div> <!-- Row END -->
         </div>
         <!-- Container END -->
-
-
     </main>
     <!-- **************** MAIN CONTENT END **************** -->
-
-    <!-- Modal create Feed START -->
-    <div class="modal fade" id="modalCreateFeed" tabindex="-1" aria-labelledby="modalLabelCreateFeed"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content">
-                <!-- Modal feed body START -->
-                <div class="modal-body">
-                    <!-- Add Feed -->
-                    <form method="POST" action="{{ route('publication.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="d-flex mb-3">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-xs me-2">
-                                <img class="avatar-img rounded-circle"
-                                    src="{{ Auth::check() && Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('path/to/default-image.jpg') }}"
-                                    alt="">
-                            </div>
-                            <!-- Feed box  -->
-                            <div class="w-100">
-                                <textarea class="form-control pe-4 fs-3 lh-1 border-0" rows="2" name="content" placeholder="Publication..."></textarea>
-                            </div>
-                        </div>
-                        <!-- Modal feed footer -->
-                        <div class="modal-footer">
-                            <!-- Button -->
-                            <button type="button" class="btn btn-danger-soft me-2"
-                                data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-success-soft">Publier</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- Modal feed body END -->
-            </div>
-        </div>
-    </div>
-    <!-- Modal create feed END -->
 
     <!-- =======================JS libraries, plugins and custom scripts -->
 

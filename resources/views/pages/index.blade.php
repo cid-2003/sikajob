@@ -753,32 +753,9 @@
                         @endif
                     </div>
 
-                    @foreach ($recommandations as $publication)
-                    <div class="card card-body">
-                        <div class="d-flex mb-3">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-xs me-2">
-                                <a href="#">
-                                    <img class="avatar-img rounded-circle"
-                                        src="{{ Auth::check() && Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('path/to/default-image.jpg') }}"
-                                        alt="">
-                                </a>
-                            </div>
-                            <!-- Post input -->
-                            <form method="POST" action="{{ route('publication.store') }}"
-                                enctype="multipart/form-data" class="w-100">
-                                @csrf
-                                <textarea class="form-control pe-4 border-0" rows="2" data-autoresize="" id="publication" name="content"
-                                    placeholder="Publication..."></textarea>
-
-                                <button type="submit" class="btn btn-success-soft m-2 l-15">Publier</button>
-                            </form>
-                        </div>
-                        <!-- Share feed toolbar START -->
-
-                        <!-- Share feed toolbar END -->
-                    </div>
-                    @endforeach
+                    {{--@foreach ($recommandations as $publication)
+                    
+                    @endforeach--}}
 
                     <div id="scrollLoader" class="text-center my-3" style="display: none;">
                         <div class="spinner-border text-primary" role="status">
@@ -799,65 +776,25 @@
     </main>
     <!-- **************** MAIN CONTENT END **************** -->
 
-    <!-- Modal create Feed START créer publication-->
-    <!-- Modal create Feed photo START -->
-    <div class="modal fade" id="feedActionPhoto" tabindex="-1" aria-labelledby="feedActionPhotoLabel"
-        aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-
-
-                <!-- Modal feed body START -->
-                <div class="modal-body">
-                    <!-- Add Feed -->
-                    <form method="POST" action="{{ route('publication.store') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="d-flex mb-3">
-                            <!-- Avatar -->
-                            <div class="avatar avatar-xs me-2">
-                                <img class="avatar-img rounded-circle"
-                                    src="{{ Auth::check() && Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : asset('path/to/default-image.jpg') }}"
-                                    alt="">
-                            </div>
-                            <!-- Feed box  -->
-                            <div class="w-100">
-                                <textarea class="form-control pe-4 fs-3 lh-1 border-0" rows="2" name="content" placeholder="Publication..."></textarea>
-                            </div>
-                        </div>
-                        <!-- Modal feed footer -->
-                        <div class="modal-footer">
-                            <!-- Button -->
-                            <button type="button" class="btn btn-danger-soft me-2"
-                                data-bs-dismiss="modal">Annuler</button>
-                            <button type="submit" class="btn btn-success-soft">Publier</button>
-                        </div>
-                    </form>
-                </div>
-                <!-- Modal feed body END -->
-            </div>
-        </div>
-    </div>
-    <!-- Modal create Feed photo END -->
-
     <!-- =======================JS libraries, plugins and custom scripts -->
 
     <!-- Bootstrap JS -->
-    <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/dist/js/bootstrap.bundle.min.js')}}"></script>
 
     <!-- Vendors -->
-    <script src="{{ asset('assets/vendor/tiny-slider/dist/tiny-slider.js') }}"></script>
-    <script src="{{ asset('assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/choices.js/public/assets/scripts/choices.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/glightbox-master/dist/js/glightbox.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/flatpickr/dist/flatpickr.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tiny-slider/dist/tiny-slider.js')}}"></script>
+    <script src="{{ asset('assets/vendor/OverlayScrollbars-master/js/OverlayScrollbars.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/choices.js/public/assets/scripts/choices.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/glightbox-master/dist/js/glightbox.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/flatpickr/dist/flatpickr.min.js')}}"></script>
     <script src="{{ asset('assets/vendor/plyr/plyr.js') }}"></script>
-    <script src="{{ asset('assets/vendor/dropzone/dist/min/dropzone.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/zuck.js/dist/zuck.min.js') }}"></script>
-    <script src="{{ asset('assets/js/zuck-stories.js') }}"></script>
+    <script src="{{ asset('assets/vendor/dropzone/dist/min/dropzone.min.js')}}"></script>
+    <script src="{{ asset('assets/vendor/zuck.js/dist/zuck.min.js')}}"></script>
+    <script src="{{ asset('assets/js/zuck-stories.js')}}"></script>
 
     <!-- Theme Functions -->
-    <script src="{{ asset('assets/js/functions.js') }}"></script>
-    <script src="{{ asset('script.js') }}"></script>
+    <script src="{{ asset('assets/js/functions.js')}}"></script>
+    <script src="{{ asset('script.js')}}"></script>
     <script>
         //script pour les like
         document.addEventListener("DOMContentLoaded", function() {

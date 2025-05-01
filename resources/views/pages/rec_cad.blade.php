@@ -145,7 +145,8 @@
                     <!-- Nav Search START -->
                     <div class="nav mt-3 mt-lg-0 flex-nowrap align-items-center px-4 px-lg-0">
                         <div class="nav-item w-100">
-                            <form action="{{ route('rec_cad') }}" method="GET" class="rounded position-relative ms-5">
+                            <form action="{{ route('rec_cad') }}" method="GET"
+                                class="rounded position-relative ms-5">
                                 <input name="search" id="search" class="form-control ps-5 bg-light" type="search"
                                     placeholder="Recherche (ex: nom, prénom, rôle...)" aria-label="Search">
                                 <button
@@ -305,8 +306,8 @@
     </header>
 
 
-     <!-- **************** MAIN CONTENT START **************** -->
-     <main>
+    <!-- **************** MAIN CONTENT START **************** -->
+    <main>
         <!-- Container START -->
         <div class="container">
             <div class="row g-4">
@@ -397,7 +398,8 @@
                                         <!-- Card body END -->
                                         <!-- Card footer -->
                                         <div class="card-footer text-center py-2">
-                                            <a class="btn btn-link btn-sm" href="{{ route('profil.user', Auth::user()->id) }} ">
+                                            <a class="btn btn-link btn-sm"
+                                                href="{{ route('profil.user', Auth::user()->id) }} ">
                                                 <h6>Voir Profile</h6>
                                             </a>
                                         </div>
@@ -422,12 +424,13 @@
                 </div>
                 <!-- Sidenav END -->
 
-                <div class="col-md-8 col-lg-6 vstack gap-4">    
-                      <!-- Card START -->
-                      <div class="card h-100">
+                <div class="col-md-8 col-lg-6 vstack gap-4">
+                    <!-- Card START -->
+                    <div class="card h-100">
                         <!-- Card header START -->
-                        <div class="card-header d-sm-flex align-items-center text-center justify-content-sm-between border-0 pb-0">
-                          <h1 class="h4 card-title">Recruteur/Candidats</h1>
+                        <div
+                            class="card-header d-sm-flex align-items-center text-center justify-content-sm-between border-0 pb-0">
+                            <h1 class="h4 card-title">Recruteur/Candidats</h1>
                         </div>
                         <!-- Card header START -->
                         <!-- Card body START -->
@@ -438,16 +441,16 @@
                                         <!-- Card utilisateur -->
                                         <div class="card h-100 shadow-sm">
                                             <div class="position-relative">
-                                                <img class="card-img-top" 
-                                                     src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('default.png') }}" 
-                                                     alt="" style="height: 150px; object-fit: cover;">
+                                                <img class="card-img-top"
+                                                    src="{{ $user->photo ? asset('storage/' . $user->photo) : asset('default.png') }}"
+                                                    alt="" style="height: 150px; object-fit: cover;">
                                                 @if ($user->role === 'Recruteur')
                                                     <span class="badge bg-success position-absolute top-0 end-0 m-2">
                                                         <i class="fa fa-check-circle"></i>
                                                     </span>
                                                 @endif
                                             </div>
-                        
+
                                             <div class="card-body text-center">
                                                 <h5 class="card-title mb-1">
                                                     {{ $user->name }} {{ $user->prenom }}
@@ -465,9 +468,10 @@
                                                 </p>
                                                 <p class="mb-0">
                                                     <i class="fa fa-envelope pe-1"></i>
-                                                   {{ $user->email ?? 'Non précisé'}}
+                                                    {{ $user->email ?? 'Non précisé' }}
                                                 </p>
-                                                <a href="{{ route('profil.user', $user->id) }}" class="btn btn-sm btn-outline-primary w-100">
+                                                <a href="{{ route('profil.user', $user->id) }}"
+                                                    class="btn btn-sm btn-outline-primary w-100">
                                                     Voir profil
                                                 </a>
                                             </div>
@@ -476,14 +480,14 @@
                                 @endforeach
                             </div>
                         </div>
-                        
-                      <!-- Card body END -->
+
+                        <!-- Card body END -->
                     </div>
                     <!-- Card END -->
-                  </div>
-
-
-
+                </div>
+            </div>
+        </div>
+    </main>
 
 
 
@@ -512,59 +516,59 @@
     <script>
         //script pour les like
         document.addEventListener("DOMContentLoaded", function() {
-        const likeButtons = document.querySelectorAll(".like-button");
-        likeButtons.forEach(button => {
-            button.addEventListener("click", function() {
-                const postId = this.dataset.postId;
-                const likeCountElement = this.querySelector(".like-count");
-                const icon = this.querySelector("i");
+            const likeButtons = document.querySelectorAll(".like-button");
+            likeButtons.forEach(button => {
+                button.addEventListener("click", function() {
+                    const postId = this.dataset.postId;
+                    const likeCountElement = this.querySelector(".like-count");
+                    const icon = this.querySelector("i");
 
-                fetch("{{ route('publication.like') }}", {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                        },
-                        body: JSON.stringify({
-                            publication_id: postId
+                    fetch("{{ route('publication.like') }}", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            },
+                            body: JSON.stringify({
+                                publication_id: postId
+                            })
                         })
-                    })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error("Erreur lors de la requête");
-                        }
-                        return response.json();
-                    })
-                    .then(data => {
-                        if (data.liked) {
-                            icon.style.color = "#007bff";
-                            button.classList.add("liked");
-                        } else {
-                            icon.style.color = "";
-                            button.classList.remove("liked");
-                        }
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error("Erreur lors de la requête");
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.liked) {
+                                icon.style.color = "#007bff";
+                                button.classList.add("liked");
+                            } else {
+                                icon.style.color = "";
+                                button.classList.remove("liked");
+                            }
 
-                        likeCountElement.textContent = data.likesCount;
+                            likeCountElement.textContent = data.likesCount;
 
-                        // Mise à jour du tooltip
-                        if (button.hasAttribute("data-bs-title")) {
-                            const tooltip = bootstrap.Tooltip.getInstance(button);
-                            if (tooltip) tooltip.dispose();
+                            // Mise à jour du tooltip
+                            if (button.hasAttribute("data-bs-title")) {
+                                const tooltip = bootstrap.Tooltip.getInstance(button);
+                                if (tooltip) tooltip.dispose();
 
-                            const names = data.usernames?.length ?
-                                data.usernames.join('<br>') :
-                                "Personne n'a encore liké ce post";
+                                const names = data.usernames?.length ?
+                                    data.usernames.join('<br>') :
+                                    "Personne n'a encore liké ce post";
 
-                            button.setAttribute("data-bs-title", names);
-                            new bootstrap.Tooltip(button);
-                        }
-                    })
-                    .catch(error => {
-                        console.error("Erreur lors du like :", error);
-                    });
+                                button.setAttribute("data-bs-title", names);
+                                new bootstrap.Tooltip(button);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Erreur lors du like :", error);
+                        });
+                });
             });
         });
-    });
 
         function loadMorePublications() {
             if (isLoading || noMoreData) return;

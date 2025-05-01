@@ -5,12 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Publication;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
 use App\Models\Like;
-use App\Models\setting;
+use App\Models\Setting;
 use App\Models\Candidature;
 use App\Models\Notification;
 use App\Models\User;
@@ -55,13 +51,13 @@ class PublicationController extends Controller
         if (!Auth::check()) {
             return response()->json(['error' => 'Non authentifié'], 401);
         }
-    
+
         $user = Auth::user();
         $publicationId = $request->publication_id;
         $publication = Publication::findOrFail($publicationId);
-    
+
         $like = Like::where('user_id', $user->id)->where('publication_id', $publicationId)->first();
-    
+
         if ($like) {
             $like->delete();
             $liked = false;
@@ -69,14 +65,14 @@ class PublicationController extends Controller
             Like::create(['user_id' => $user->id, 'publication_id' => $publicationId]);
             $liked = true;
         }
-    
+
         $likesCount = Like::where('publication_id', $publicationId)->count();
-    
+
         $usernames = Like::where('publication_id', $publicationId)
-                        ->with('user')
-                        ->get()
-                        ->pluck('user.name');
-    
+            ->with('user')
+            ->get()
+            ->pluck('user.name');
+
         return response()->json([
             'liked' => $liked,
             'likesCount' => $likesCount,
@@ -108,13 +104,13 @@ class PublicationController extends Controller
 
         //Je vérifie si le recruteur existe
         if (!$recruteur) {
-             return redirect()->back()->with('error', 'Recruteur introuvable.');
+            return redirect()->back()->with('error', 'Recruteur introuvable.');
         }
 
         $cvPath = null;
 
         if ($request->hasFile('cv')) {
-        $cvPath = $request->file('cv')->store('cv', 'public');
+            $cvPath = $request->file('cv')->store('cv', 'public');
         }
 
         Candidature::create([
@@ -135,36 +131,35 @@ class PublicationController extends Controller
 
     //Fonction de recommandation
     public function recommandations(){
-    $user = Auth::user();
+        $user = Auth::user();
 
-    if (!$user || !$user->settings) {
-        return collect(); // ou une réponse vide si l'user n'est pas connecté ou n'a pas encore rempli ses infos
+        if (!$user || !$user->settings) {
+            return collect(); // donner une réponse vide si l'user n'est pas connecté ou n'a pas encore rempli ses infos
+        }
+
+        $metier = $user->metiers;
+        $pays = $user->settings->country;
+
+        $publicationsPays = Publication::with('user')
+            ->whereHas('user', function ($query) use ($metier, $pays) {
+                $query->where('metiers', $metier)
+                    ->whereHas('settings', function ($q) use ($pays) {
+                        $q->where('country', $pays);
+                    });
+            })
+            ->inRandomOrder()
+            ->get();
+
+        $publicationsAutresPays = Publication::with('user')
+            ->whereHas('user', function ($query) use ($metier, $pays) {
+                $query->where('metiers', $metier)
+                    ->whereHas('settings', function ($q) use ($pays) {
+                        $q->where('country', '!=', $pays);
+                    });
+            })
+            ->inRandomOrder()
+            ->get();
+
+        return $publicationsPays->merge($publicationsAutresPays);
     }
-
-    $metier = $user->metiers;
-    $pays = $user->settings->country;
-
-    $publicationsPays = Publication::with('user')
-        ->whereHas('user', function ($query) use ($metier, $pays) {
-            $query->where('metiers', $metier)
-                  ->whereHas('settings', function ($q) use ($pays) {
-                      $q->where('country', $pays);
-                  });
-        })
-        ->inRandomOrder()
-        ->get();
-
-    $publicationsAutresPays = Publication::with('user')
-        ->whereHas('user', function ($query) use ($metier, $pays) {
-            $query->where('metiers', $metier)
-                  ->whereHas('settings', function ($q) use ($pays) {
-                      $q->where('country', '!=', $pays);
-                  });
-        })
-        ->inRandomOrder()
-        ->get();
-
-    return $publicationsPays->merge($publicationsAutresPays);
-    }
-
 }

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    #'default' => env('FILESYSTEM_DISK', 'local'),
+    'default' => env('FILESYSTEM_DISK', 'local'),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,7 +28,7 @@ return [
     |
     */
 
-    /*'disks' => [
+    'disks' => [
 
         'local' => [
             'driver' => 'local',
@@ -44,7 +44,7 @@ return [
             'throw' => false,
         ],
 
-        's3' => [
+        /*'s3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
@@ -54,7 +54,7 @@ return [
             'endpoint' => env('AWS_ENDPOINT'),
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
-        ],
+        ],*/
 
     ],
 
@@ -69,8 +69,8 @@ return [
     |
     */
 
-    /*'links' => [
+    'links' => [
         public_path('storage') => storage_path('app/public'),
-    ],*/
+    ],
 
 ];

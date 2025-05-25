@@ -49,7 +49,7 @@ class SettingController extends Controller
                 'email' => $validatedData['email'] ?? $user->email,
                 'metiers' => $validatedData['metiers'] ?? $user->metiers,
                 'password' => isset($validatedData['password']) ? Hash::make($validatedData['password']) : $user->password,
-                'photo' => $request->hasFile('photo') ? $request->file('photo')->store('photos', 'public') : $user->photo,
+                'photo' => $request->hasFile('photo') ? $request->file('photo')->store('photos', 's3') : $user->photo,
             ]);
         }
 
@@ -61,7 +61,7 @@ class SettingController extends Controller
         $settings->about = $validatedData['about'] ?? $settings->about;
 
         if ($request->hasFile('photo')) {
-            $path = $request->file('photo')->store('photos', 'public');
+            $path = $request->file('photo')->store('photos', 's3');
             $settings->photo = $path;
         }
 

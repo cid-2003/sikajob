@@ -37,7 +37,7 @@ class AuthController extends Controller
      // Gestion de la photo de profil
      if ($request->hasFile('photo')) {
         Log::info('Photo détectée, enregistrement en cours...');
-        $photoPath = $request->file('photo')->store('photos', 'public');
+        $photoPath = $request->file('photo')->store('photos', 'S3');
         Log::info('Photo enregistrée avec succès.', ['path' => $photoPath]);
     } else {
         $photoPath = $user->photo ?? 'default.png';

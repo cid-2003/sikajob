@@ -47,7 +47,7 @@ class CandidatureController extends Controller
 
     //J' enregistrement le cv dans un dossier
     if ($request->hasFile('cv')) {
-        $cvPath = $request->file('cv')->store('cv', 'public');
+        $cvPath = $request->file('cv')->store('cv', 's3');
     } else {
         $cvPath = null;
     }

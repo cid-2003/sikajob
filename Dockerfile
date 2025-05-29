@@ -21,9 +21,6 @@ ENV COMPOSER_ALLOW_SUPERUSER 1
 # Installation des dépendances Laravel (si pas déjà fait)
 RUN composer install --no-dev --optimize-autoloader
 
-# Création du lien symbolique de storage
-RUN php artisan storage:link
-
 # Mise en cache de la config et des routes
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 

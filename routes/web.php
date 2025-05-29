@@ -51,7 +51,6 @@ Route::post('/candidature/{id}/accepter', [CandidatureController::class, 'accept
 Route::post('/candidature/{id}/refuser', [CandidatureController::class, 'refuseCandidature'])->name('candidature.refuser');//Refuser cand coté recruteurs
 
 // settings
-Route::post('/settings', [PageController::class, 'updateSettings'])->name('settings.update');
 Route::get('/settings', [PageController::class, 'Settings'])->name('settings');
 // My-Profile
 Route::get('/my-profile', [PageController::class, 'Profil'])->name('my-profile');

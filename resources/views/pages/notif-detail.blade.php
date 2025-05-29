@@ -432,18 +432,31 @@
                             <div class="card-body">
                                 <!-- Section CV -->
                                 <div class="mb-4">
-                                    <h5 class="mb-3"></i> CV du candidat</h5>
-                                    <div class="d-flex align-items-center bg-light p-3 rounded">
-                                        
-                                        <div>
-                                            <p class="mb-1 fw-bold">{{ basename($candidature->cv) }}</p>
-                                            <p class="small text-muted mb-0">Curriculum vitae</p>
-                                        </div>
-                                        <a href="{{ asset('storage/' . $candidature->cv) }}" class="btn btn-outline-primary ms-auto" target="_blank">
-                                            <i class="fa fa-eye me-1"></i> Voir le CV
-                                        </a> 
-                                    </div>
-                                </div>
+    <h5 class="mb-3">CV du candidat</h5>
+    <div class="d-flex align-items-center bg-light p-3 rounded">
+        <div>
+            <p class="mb-1 fw-bold">{{ basename($candidature->cv) }}</p>
+            <p class="small text-muted mb-0">Curriculum vitae</p>
+        </div>
+        <button class="btn btn-outline-primary ms-auto" data-bs-toggle="modal" data-bs-target="#cvModal">
+            <i class="fa fa-eye me-1"></i> Voir le CV
+        </button>
+    </div>
+</div>
+                                <!-- Modal d'affichage du CV -->
+<div class="modal fade" id="cvModal" tabindex="-1" aria-labelledby="cvModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="cvModalLabel">Aperçu du CV</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fermer"></button>
+      </div>
+      <div class="modal-body" style="height: 80vh">
+        <iframe src="{{ asset('storage/' . $candidature->cv) }}" style="width:100%; height:100%;" frameborder="0"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
                         
                                 <!-- Section Lettre de motivation -->
                                 <div class="mb-4">
